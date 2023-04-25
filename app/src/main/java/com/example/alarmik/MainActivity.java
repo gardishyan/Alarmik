@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.alarmik.databinding.ActivityMainBinding;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     final int REQUEST_CODE = 100; //any integer
 
     private ActivityMainBinding binding;
+    private AlarmHelper alarmHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Display plain notification on click
         binding.btnShowNotification.setOnClickListener(v -> {
-            NotificationHelper.show(this, "Good day", "Body text here");
+            NotificationHelper.show(this, "Alarmik", "Notification from manual click");
         });
 
         //Set alarm, close app and expect wake up in 1 minute
+        alarmHelper = new AlarmHelper();
         binding.btnSetAlarm.setOnClickListener(v -> {
-            //NotificationHelper.show(this, "Good day", "Body text here");
+            alarmHelper.setAlarmInNextMinute(this);
+            Toast.makeText(this, getString(R.string.msg_alarm_ok), Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 
