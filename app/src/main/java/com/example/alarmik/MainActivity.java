@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         //Display plain notification on click
         binding.btnShowNotification.setOnClickListener(v -> {
             NotificationHelper.show(this, "Alarmik", "Notification from manual click");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.beep);
+            mediaPlayer.setOnCompletionListener(MediaPlayer::release);
+            mediaPlayer.start();
         });
 
         //Set alarm, close app and expect wake up in 1 minute
